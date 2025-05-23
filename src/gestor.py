@@ -1,0 +1,171 @@
+from flies import NationalFly, InternationalFly
+from plane import Plane
+from airline import Airline
+from datetime import date, datetime
+from operator import attrgetter
+import os
+import json
+
+class FilesGestor:
+    def __init__(self):
+        try:
+            os.makedirs("./data/", exist_ok=True)
+        except OSError:
+            pass
+
+    def __list_serializer(self, l) -> list:
+        sl = list()
+        for i in l:
+            sl.append(i.serialize())
+        return sl
+    
+    def save(self, nationals : list, internationals : list, airlines : list) -> bool:
+        nf = self.__list_serializer(nationals) 
+        inf = self.__list_serializer(internationals)
+        air = self.__list_serializer(airlines)
+        try:
+            with open("./data/nationals.json", 'w', encoding='utf-8') as file:
+                json.dump(nf, file, indent=4, ensure_ascii=False)
+            with open("./data/internationals.json", 'w', encoding='utf-8') as file:
+                json.dump(inf, file, indent=4, ensure_ascii=False)
+            with open("./data/airlines.json", 'w', encoding='utf-8') as file:
+                json.dump(air, file, indent=4, ensure_ascii=False)
+            return True
+        except Exception as e:
+            print(e)
+
+    def read(self) -> tuple[list[NationalFly], list[InternationalFly], list[Airline]]:
+        nationals = list()
+        internationals = list()
+        airlines = list()
+        try:
+            with open("./data/nationals.json", 'r', encoding='utf-8') as file:
+                fly = json.load(file, object_hook= NationalFly.deserialize)
+                nationals = fly
+            with open("./data/internationals.json", 'r', encoding='utf-8') as file:
+                fly = json.load(file, object_hook=InternationalFly.deserialize)
+                internationals = fly
+            with open("./data/airlines.json", 'r', encoding='utf-8') as file:
+                air = json.load(file, object_hook= Airline.deserialize)
+                airlines = air
+        except Exception as e:
+            pass
+        finally:
+            return nationals, internationals, airlines
+
+
+class FliesGestor:
+    __files = FilesGestor()
+    __nationals, __internationals, __airlines = __files.read()
+    
+    @classmethod
+    def get_nationals(cls) -> list[NationalFly]:
+        return cls.__nationals
+    
+    @classmethod
+    def get_internationals(cls) -> list[InternationalFly]:
+        return cls.__internationals
+    
+    @classmethod
+    def get_airlines(cls) -> list[Airline]:
+        return cls.__airlines
+    
+    @classmethod
+    def add_ifly(cls, code : str, inner: bool, airline : str, init_city : str, end_city : str, datetime : datetime, mark : str, model : str, matr : str, capacity : int, destiny : str, scale : bool, number : int):
+        cls.__internationals.append(InternationalFly(code, inner, airline, init_city, end_city, datetime, Plane(mark, model, matr, capacity), destiny, scale, number))
+    
+    @classmethod
+    def add_nfly(cls, code : str, inner: bool, airline : str, init_city : str, end_city : str, datetime : datetime, mark : str, model : str, matr : str, capacity : int):
+        cls.__nationals.append(NationalFly(code, inner, airline, init_city, end_city, datetime, Plane(mark, model, matr, capacity)))
+    
+    @classmethod
+    def del_fly(cls, code: str) -> bool:
+        finded = False
+        for i in cls.get_nationals():
+            if i.code == code.upper():
+                cls.__nationals.remove(i)
+                finded = True
+        for i in cls.get_internationals():
+            if i.code == code.upper():
+                cls.__internationals.remove(i)
+                finded = True
+        return finded
+    
+    @classmethod
+    def add_airline(cls, code : str, name : str, nation : str, planes : int):
+        cls.__airlines.append(Airline(name, code, planes, nation))
+        print(cls.__airlines)
+
+    @classmethod
+    def del_airline(cls, code : str) -> bool:
+        finded = False
+        for i in cls.__airlines:
+            if i.code == code.upper():
+                cls.__airlines.remove(i)
+                finded = True
+        cls.clean_links()
+        return finded
+    
+    @classmethod
+    def get_airline(cls, code : str) -> Airline:
+        flies = cls.get_nationals() + cls.get_internationals()
+        for i in flies:
+            if i.code == code.upper():
+                try:
+                    return list(filter(lambda a : i.airline == a.name, cls.__airlines))[0]
+                except IndexError:
+                    pass
+    
+    @classmethod
+    def get_airline_code(cls, name : str) -> str:
+        return list(filter(lambda a : a.name == name, cls.__airlines))[0].code
+
+    @classmethod
+    def get_internationals_porcent(cls, mark : str, name : str) -> tuple[int]:
+        flies = list()
+        for i in cls.get_internationals():
+            if i.airline == name:
+                flies.append(i)
+        c = 0
+        for i in flies:
+            if i.plane.mark == mark:
+                c += 1
+        return c, len(flies), c*100//len(flies)
+    
+    @classmethod
+    def get_passagers_avg(cls, destiny: str) -> tuple[int, list[InternationalFly]]:
+        s = 0
+        l = list(filter(lambda f: f.destiny == destiny, cls.get_internationals()))
+        for i in l:
+            s += i.plane.capacity
+        return s//len(l), l
+    
+    @classmethod
+    def get_outers_nflies(cls, date: date) -> list[NationalFly]:
+        flies = list(filter(lambda f : not f.inner and f.datetime.date() == date, cls.get_nationals()))
+        # sort(key= attrgetter('datetime.time'))
+        return flies
+    
+    @classmethod
+    def get_scalest_fly(cls, date: date) -> InternationalFly:
+        try:
+            sf = list(filter(lambda f : not f.inner and f.datetime.date() == date, cls.get_internationals())).sort(key= attrgetter('scale_number'))[0]
+            return sf
+        except Exception:
+            return None
+        
+    @classmethod
+    def clean_links(cls):
+        air_names = list()
+        for i in cls.__airlines:
+            air_names.append(i.name)
+        for i in cls.__internationals:
+            if not i.airline in air_names:
+                cls.__internationals.remove(i)
+        for i in cls.__nationals:
+            if not i.airline in air_names:
+                cls.__nationals.remove(i)
+    
+    @classmethod
+    def close(cls) -> bool:
+        return cls.__files.save(cls.get_nationals(), cls.get_internationals(), cls.get_airlines())
