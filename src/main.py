@@ -64,7 +64,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.capacityScalestLabel = self.findChild(QtWidgets.QLabel, 'capacityScalestLabel')
         self.destinyScalestLabel = self.findChild(QtWidgets.QLabel, 'destinyScalestLabel')
         self.scaleScalestLabel = self.findChild(QtWidgets.QLabel, 'scaleScalestLabel')
-        self.numberScalestLabel = self.findChild(QtWidgets.QLabel, 'scalestScalestLabel')
+        self.numberScalestLabel = self.findChild(QtWidgets.QLabel, 'numberScalestLabel')
 
         self.addMain = self.findChild(QtWidgets.QFrame, 'addMain')
         self.listMain = self.findChild(QtWidgets.QFrame, 'listMain')
@@ -349,10 +349,10 @@ class MainWindow(QtWidgets.QMainWindow):
         else:
             self.codeScalestLabel.setText(fly.code)
             self.innerScalestLabel.setText(str(fly.inner))
-            self.airlineScalestLabel.setText(fly.airline.code)
+            self.airlineScalestLabel.setText(fly.airline)
             self.initScalestLabel.setText(fly.init_city)
             self.endScalestLabel.setText(fly.end_city)
-            self.dateScalestLabel.setText(str(fly.datetime.date))
+            self.dateScalestLabel.setText(str(fly.datetime.date()))
             self.markScalestLabel.setText(fly.plane.mark)
             self.modelScalestLabel.setText(fly.plane.model)
             self.matrScalestLabel.setText(fly.plane.matricule)

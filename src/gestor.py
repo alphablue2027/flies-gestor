@@ -142,14 +142,14 @@ class FliesGestor:
     
     @classmethod
     def get_outers_nflies(cls, date: date) -> list[NationalFly]:
-        flies = list(filter(lambda f : not f.inner and f.datetime.date() == date, cls.get_nationals()))
+        flies = sorted(list(filter(lambda f : not f.inner and f.datetime.date() == date, cls.get_nationals())), key= lambda f: f.datetime.time())
         # sort(key= attrgetter('datetime.time'))
         return flies
     
     @classmethod
     def get_scalest_fly(cls, date: date) -> InternationalFly:
         try:
-            sf = list(filter(lambda f : not f.inner and f.datetime.date() == date, cls.get_internationals())).sort(key= attrgetter('scale_number'))[0]
+            sf = sorted(list(filter(lambda f : not f.inner and f.datetime.date() == date, cls.get_internationals())), key= lambda f: f.scale_number, reverse=True)[0]
             return sf
         except Exception:
             return None
