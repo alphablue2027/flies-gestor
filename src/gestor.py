@@ -2,7 +2,6 @@ from flies import NationalFly, InternationalFly
 from plane import Plane
 from airline import Airline
 from datetime import date, datetime
-from operator import attrgetter
 import os
 import json
 
@@ -13,7 +12,7 @@ class FilesGestor:
         except OSError:
             pass
 
-    def __list_serializer(self, l) -> list:
+    def __list_serializer(self, l : list) -> list:
         sl = list()
         for i in l:
             sl.append(i.serialize())
@@ -143,7 +142,6 @@ class FliesGestor:
     @classmethod
     def get_outers_nflies(cls, date: date) -> list[NationalFly]:
         flies = sorted(list(filter(lambda f : not f.inner and f.datetime.date() == date, cls.get_nationals())), key= lambda f: f.datetime.time())
-        # sort(key= attrgetter('datetime.time'))
         return flies
     
     @classmethod

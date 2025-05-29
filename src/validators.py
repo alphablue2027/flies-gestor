@@ -20,12 +20,8 @@ def is_name_valid(*name : str) -> bool:
 
 def is_aname_valid(name : str) -> bool:
     valid = True
-    if " " in name:
-        for i in name.split():
-            if not i.isalpha():
-                valid = False
-    elif not name.isalpha():
-        valid = False
+    valid = is_name_valid(name)
+    
     if list(filter(lambda a : a.name == name, FliesGestor.get_airlines())):
         valid = False
     return valid
