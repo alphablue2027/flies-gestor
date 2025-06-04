@@ -1,5 +1,4 @@
 from flies import NationalFly, InternationalFly
-from plane import Plane
 from airline import Airline
 from datetime import date, datetime
 import os
@@ -18,7 +17,7 @@ class FilesGestor:
             sl.append(i.serialize())
         return sl
     
-    def save(self, nationals : list, internationals : list, airlines : list) -> bool:
+    def save(self, nationals : list[NationalFly], internationals : list, airlines : list) -> bool:
         nf = self.__list_serializer(nationals) 
         inf = self.__list_serializer(internationals)
         air = self.__list_serializer(airlines)
@@ -32,6 +31,7 @@ class FilesGestor:
             return True
         except Exception as e:
             print(e)
+            return False
 
     def read(self) -> tuple[list[NationalFly], list[InternationalFly], list[Airline]]:
         nationals = list()
@@ -71,11 +71,11 @@ class FliesGestor:
     
     @classmethod
     def add_ifly(cls, code : str, inner: bool, airline : str, init_city : str, end_city : str, datetime : datetime, mark : str, model : str, matr : str, capacity : int, destiny : str, scale : bool, number : int):
-        cls.__internationals.append(InternationalFly(code, inner, airline, init_city, end_city, datetime, Plane(mark, model, matr, capacity), destiny, scale, number))
+        cls.__internationals.append(InternationalFly(code, inner, airline, init_city, end_city, datetime, mark, model, matr, capacity, destiny, scale, number))
     
     @classmethod
     def add_nfly(cls, code : str, inner: bool, airline : str, init_city : str, end_city : str, datetime : datetime, mark : str, model : str, matr : str, capacity : int):
-        cls.__nationals.append(NationalFly(code, inner, airline, init_city, end_city, datetime, Plane(mark, model, matr, capacity)))
+        cls.__nationals.append(NationalFly(code, inner, airline, init_city, end_city, datetime, mark, model, matr, capacity))
     
     @classmethod
     def del_fly(cls, code: str) -> bool:
@@ -106,7 +106,7 @@ class FliesGestor:
         return finded
     
     @classmethod
-    def get_airline(cls, code : str) -> Airline:
+    def get_airline(cls, code : str) -> Airline | None:
         flies = cls.get_nationals() + cls.get_internationals()
         for i in flies:
             if i.code == code.upper():
@@ -120,7 +120,7 @@ class FliesGestor:
         return list(filter(lambda a : a.name == name, cls.__airlines))[0].code
 
     @classmethod
-    def get_internationals_porcent(cls, mark : str, name : str) -> tuple[int]:
+    def get_internationals_porcent(cls, mark : str, name : str) -> tuple[int, int, int]:
         flies = list()
         for i in cls.get_internationals():
             if i.airline == name:
@@ -145,7 +145,7 @@ class FliesGestor:
         return flies
     
     @classmethod
-    def get_scalest_fly(cls, date: date) -> InternationalFly:
+    def get_scalest_fly(cls, date: date) -> InternationalFly | None:
         try:
             sf = sorted(list(filter(lambda f : not f.inner and f.datetime.date() == date, cls.get_internationals())), key= lambda f: f.scale_number, reverse=True)[0]
             return sf

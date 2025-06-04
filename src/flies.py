@@ -1,18 +1,16 @@
-from abc import ABC
 from serializable import Serializable
-from airline import Airline
 from plane import Plane
 from datetime import datetime
 
-class Fly(Serializable):
-    def __init__(self, code : str, inner: bool, airline : str, init_city : str, end_city : str, datetime : datetime, plane : Plane):
+class NationalFly(Serializable):
+    def __init__(self, code : str, inner: bool, airline : str, init_city : str, end_city : str, datetime : datetime, mark : str, model : str, matr : str, capacity : int):
         self._code = code
         self._inner = inner
         self._airline = airline
         self._init_city = init_city
         self._end_city = end_city
         self._datetime = datetime
-        self._plane = plane
+        self._plane = Plane(mark, model, matr, capacity)
     
     @property
     def code(self):
@@ -94,16 +92,15 @@ class Fly(Serializable):
                 init_city = data['init_city'],
                 end_city = data['end_city'],
                 datetime = datetime.strptime(data['datetime'], "%Y/%m/%d, %H:%M:%S"),
-                plane = data['plane']
+                mark = data['plane'].mark,
+                model = data['plane'].model,
+                matr = data['plane'].matricule,
+                capacity = data['plane'].capacity
             )
 
-class NationalFly(Fly):
-    def __init__(self, code : str, inner: bool, airline : str, init_city : str, end_city : str, datetime : datetime, plane : Plane):
-        super().__init__(code, inner, airline, init_city, end_city, datetime, plane)
-
-class InternationalFly(Fly):
-    def __init__(self, code : str, inner: bool, airline : str, init_city : str, end_city : str, datetime : datetime, plane : Plane, destiny : str, scale : bool, scale_number : int):
-        super().__init__(code, inner, airline, init_city, end_city, datetime, plane)
+class InternationalFly(NationalFly):
+    def __init__(self, code : str, inner: bool, airline : str, init_city : str, end_city : str, datetime : datetime, mark : str, model : str, matr : str, capacity : int, destiny : str, scale : bool, scale_number : int):
+        super().__init__(code, inner, airline, init_city, end_city, datetime, mark, model, matr, capacity)
         self._destiny = destiny
         self._scale = scale
         self._scale_number = scale_number
@@ -151,7 +148,10 @@ class InternationalFly(Fly):
                 init_city = data['init_city'],
                 end_city = data['end_city'],
                 datetime = datetime.strptime(data['datetime'], "%Y/%m/%d, %H:%M:%S"),
-                plane = data['plane'],
+                mark = data['plane'].mark,
+                model = data['plane'].model,
+                matr = data['plane'].matricule,
+                capacity = data['plane'].capacity,
                 destiny = data['destiny'],
                 scale = data['scale'],
                 scale_number = data['scale_number']
