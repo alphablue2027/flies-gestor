@@ -8,98 +8,25 @@ class MainWindow(QtWidgets.QMainWindow):
         super().__init__()
         uic.loadUi("main.ui", self)
 
-        self.stackedWidget = self.findChild(QtWidgets.QStackedWidget, 'stackedWidget')
-        self.listOptions = self.findChild(QtWidgets.QComboBox, 'listOptions')
-        self.destinyAddInput = self.findChild(QtWidgets.QLineEdit, 'destinyAddInput')
-        self.scaleAddCheck = self.findChild(QtWidgets.QCheckBox, 'scaleAddCheck')
-        self.numberAddInput = self.findChild(QtWidgets.QSpinBox, 'numberAddInput')
-        self.destinyAddLabel = self.findChild(QtWidgets.QLabel, 'destinyAddLabel')
-        self.scaleAddLabel = self.findChild(QtWidgets.QLabel, 'scaleAddLabel')
-        self.numberAddLabel = self.findChild(QtWidgets.QLabel, 'numberAddLabel')
-        self.airlineAddInput = self.findChild(QtWidgets.QComboBox, 'airlineAddInput')
-        self.airlinePorcentInput = self.findChild(QtWidgets.QComboBox, 'airlinePorcentInput')
-        self.markPorcentInput = self.findChild(QtWidgets.QComboBox, 'markPorcentInput')
-        self.destinyAvgInput = self.findChild(QtWidgets.QComboBox, 'destinyAvgInput')
-        self.stackedList = self.findChild(QtWidgets.QStackedWidget, 'stackedList')
-        self.listTableI = self.findChild(QtWidgets.QTableWidget, 'listTableI')
-        self.listTableN = self.findChild(QtWidgets.QTableWidget, 'listTableN')
-        self.dateListNInput = self.findChild(QtWidgets.QDateEdit, 'dateListNInput')
-        self.listNTable = self.findChild(QtWidgets.QTableWidget, 'listNTable')
-        self.addForm = self.findChild(QtWidgets.QFrame, 'addForm')
-        self.codeAddInput = self.findChild(QtWidgets.QLineEdit, 'codeAddInput')
-        self.inAddCheck = self.findChild(QtWidgets.QCheckBox, 'inAddCheck')
-        self.initAddInput = self.findChild(QtWidgets.QLineEdit, 'initAddInput')
-        self.endAddInput = self.findChild(QtWidgets.QLineEdit, 'endAddInput')
-        self.dateAddInput = self.findChild(QtWidgets.QDateTimeEdit, 'dateAddInput')
-        self.markAddInput = self.findChild(QtWidgets.QLineEdit, 'markAddInput')
-        self.modelAddInput = self.findChild(QtWidgets.QLineEdit, 'modelAddInput')
-        self.matrAddInput = self.findChild(QtWidgets.QLineEdit, 'matrAddInput')
-        self.capacityAddInput = self.findChild(QtWidgets.QSpinBox, 'capacityAddInput')
-        self.codeAddAInput = self.findChild(QtWidgets.QLineEdit, 'codeAddAInput')
-        self.nameAddAInput = self.findChild(QtWidgets.QLineEdit, 'nameAddAInput')
-        self.nationAddAInput = self.findChild(QtWidgets.QLineEdit, 'nationAddAInput')
-        self.planesAddAInput = self.findChild(QtWidgets.QSpinBox, 'planesAddAInput')
-        self.codeDelInput = self.findChild(QtWidgets.QLineEdit, 'codeDelInput')
-        self.codeADelInput = self.findChild(QtWidgets.QLineEdit, 'codeADelInput')
-        self.codeGetAirInput = self.findChild(QtWidgets.QLineEdit, 'codeGetAirInput')
-        self.nameDataGetAir = self.findChild(QtWidgets.QLabel, 'nameDataGetAir')
-        self.codeDataGetAir = self.findChild(QtWidgets.QLabel, 'codeDataGetAir')
-        self.nationDataGetAir = self.findChild(QtWidgets.QLabel, 'nationDataGetAir')
-        self.numberDataGetAir = self.findChild(QtWidgets.QLabel, 'numberDataGetAir')
-        self.countPorcentLabel = self.findChild(QtWidgets.QLabel, 'countPorcentLabel')
-        self.totalPorcentLabel = self.findChild(QtWidgets.QLabel, 'totalPorcentLabel')
-        self.porcentBar = self.findChild(QtWidgets.QProgressBar, 'porcentBar')
-        self.resultAvgLabel = self.findChild(QtWidgets.QLabel, 'resultAvgLabel')
-        self.resultAvgTable = self.findChild(QtWidgets.QTableWidget, 'resultAvgTable')
-        self.dateScalestInput = self.findChild(QtWidgets.QDateEdit, 'dateScalestInput')
-        self.codeScalestLabel = self.findChild(QtWidgets.QLabel, 'codeScalestLabel')
-        self.innerScalestLabel = self.findChild(QtWidgets.QLabel, 'innerScalestLabel')
-        self.airlineScalestLabel = self.findChild(QtWidgets.QLabel, 'airlineScalestLabel')
-        self.initScalestLabel = self.findChild(QtWidgets.QLabel, 'initScalestLabel')
-        self.endScalestLabel = self.findChild(QtWidgets.QLabel, 'endScalestLabel')
-        self.dateScalestLabel = self.findChild(QtWidgets.QLabel, 'dateScalestLabel')
-        self.markScalestLabel = self.findChild(QtWidgets.QLabel, 'markScalestLabel')
-        self.modelScalestLabel = self.findChild(QtWidgets.QLabel, 'modelScalestLabel')
-        self.matrScalestLabel = self.findChild(QtWidgets.QLabel, 'matrScalestLabel')
-        self.capacityScalestLabel = self.findChild(QtWidgets.QLabel, 'capacityScalestLabel')
-        self.destinyScalestLabel = self.findChild(QtWidgets.QLabel, 'destinyScalestLabel')
-        self.scaleScalestLabel = self.findChild(QtWidgets.QLabel, 'scaleScalestLabel')
-        self.numberScalestLabel = self.findChild(QtWidgets.QLabel, 'numberScalestLabel')
-
-        self.addMain = self.findChild(QtWidgets.QFrame, 'addMain')
-        self.listMain = self.findChild(QtWidgets.QFrame, 'listMain')
-
-        self.asidePanel = self.findChild(QtWidgets.QFrame, 'asidePanel')
-        self.mainPanel = self.findChild(QtWidgets.QFrame, 'mainPanel')
-
-        self.listAsideButton = self.findChild(QtWidgets.QPushButton, 'listAsideButton')
-        self.listNAsideButton = self.findChild(QtWidgets.QPushButton, 'listNAsideButton')
-        self.addListButton = self.findChild(QtWidgets.QPushButton, 'addListButton')
-        self.addAirAsideButton = self.findChild(QtWidgets.QPushButton, 'addAirAsideButton')
-        self.delListButton = self.findChild(QtWidgets.QPushButton, 'delListButton')
-        self.delAirAsideButton = self.findChild(QtWidgets.QPushButton, 'delAirAsideButton')
-        self.getAirAsideButton = self.findChild(QtWidgets.QPushButton, 'getAirAsideButton')
-        self.porcentAsideButton = self.findChild(QtWidgets.QPushButton, 'porcentAsideButton')
-        self.avgAsideButton = self.findChild(QtWidgets.QPushButton, 'avgAsideButton')
-        self.scalestAsideButton = self.findChild(QtWidgets.QPushButton, 'scalestAsideButton')
-
-        self.listNButton = self.findChild(QtWidgets.QPushButton, 'listNButton')
-        self.addButton = self.findChild(QtWidgets.QPushButton, 'addButton')
-        self.addAButton = self.findChild(QtWidgets.QPushButton, 'addAButton')
-        self.delButton = self.findChild(QtWidgets.QPushButton, 'delButton')
-        self.delAButton = self.findChild(QtWidgets.QPushButton, 'delAButton')
-        self.findGetAirButton = self.findChild(QtWidgets.QPushButton, 'findGetAirButton')
-        self.calcPorcentButton = self.findChild(QtWidgets.QPushButton, 'calcPorcentButton')
-        self.calcAvgButton = self.findChild(QtWidgets.QPushButton, 'calcAvgButton')
-        self.findScalestButton = self.findChild(QtWidgets.QPushButton, 'findScalestButton')
-
-        self.exitBttn = self.findChild(QtWidgets.QPushButton, 'exitBttn')
-        self.minBttn = self.findChild(QtWidgets.QPushButton, 'minBttn')
-        self.menuBttn = self.findChild(QtWidgets.QPushButton, 'menuBttn')
+        self.config_menu_transitions()
 
         self.stackedWidget.setCurrentIndex(0)
         FliesGestor.clean_links()
         self.load()
+    
+    def config_menu_transitions(self):
+        # self.overlay = QtWidgets.QWidget(self.frame)
+        # self.overlay.setStyleSheet("background: transparent;")
+        # self.overlay.hide()
+
+        # olayout = QtWidgets.QHBoxLayout(self.overlay)
+        # olayout.setContentsMargins(0, 0, 0, 0)
+
+
+        self.transition = QtCore.QPropertyAnimation(self.asidePanel, b"maximumWidth")
+        self.transition.setDuration(500)
+        self.asidePanel.setMaximumWidth(0)
+        self.asidePanel.raise_()
 
     def loadTable(self, c: int):
         match c:
@@ -324,6 +251,7 @@ class MainWindow(QtWidgets.QMainWindow):
         destiny = self.destinyAvgInput.currentText()
         result = FliesGestor.get_passagers_avg(destiny)
         self.resultAvgLabel.setText(str(result[0]))
+        self.resultAvgTable.setRowCount(0)
         for i, fly in enumerate(result[1]):
             self.resultAvgTable.insertRow(i)
             self.resultAvgTable.setItem(i, 0, QtWidgets.QTableWidgetItem(fly.code))
@@ -361,37 +289,24 @@ class MainWindow(QtWidgets.QMainWindow):
             self.scaleScalestLabel.setText(str(fly.scale))
             self.numberScalestLabel.setText(str(fly.scale_number))
 
-    def minimize(self):
-        self.showMinimized()
-
     def changeAsidePanel(self):
-        transition = QtCore.QPropertyAnimation(self.asidePanel, b"geometry")
-        animation = QtCore.QPropertyAnimation(self.mainPanel, b"geometry")
-
-        transition.setDuration(1000)
-        animation.setDuration(1000)
-        g1 = self.asidePanel.geometry()
-        g2 = self.mainPanel.geometry()
+        w = 300
         
-        if self.asidePanel.width() == 300:
-            transition.setStartValue(g1)
-            transition.setEndValue(g1.adjusted(0, 0, -300, 0))
-            animation.setStartValue(g2)
-            animation.setEndValue(g2.adjusted(-300, 0, 300, 0))
-            self.mainPanel.setEnabled(True)
-            self.mainPanel.setWindowOpacity(1)
+        if self.asidePanel.maximumWidth() == 300:
+            self.transition.setStartValue(w)
+            self.transition.setEndValue(0)
         else:
-            transition.setStartValue(g1)
-            transition.setEndValue(g1.adjusted(300, 0, 300, 0))
-            self.mainPanel.setEnabled(False)
-            self.mainPanel.setWindowOpacity(0.5)
-        transition.start()
-        animation.start()
+            self.asidePanel.raise_()
+            self.transition.setStartValue(0)
+            self.transition.setEndValue(w)
+
+        self.transition.start()
         self.update()
         
-    def exit(self):
+    def closeEvent(self, a0):
         FliesGestor.close()
-        sys.exit()
+        if a0 != None:
+            a0.accept()
 
     def evts(self):
         self.listAsideButton.clicked.connect(self.getListPanel)
@@ -418,8 +333,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.calcAvgButton.clicked.connect(self.getAvg)
         self.findScalestButton.clicked.connect(self.getScalest)
 
-        self.exitBttn.clicked.connect(self.exit)
-        self.minBttn.clicked.connect(self.minimize)
         self.menuBttn.clicked.connect(self.changeAsidePanel)
 
     def load(self):
