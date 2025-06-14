@@ -1,4 +1,4 @@
-from serializable import Serializable
+from .serializable import Serializable
 
 class Plane(Serializable):
     def __init__(self, mark : str, model : str, matricule : str, capacity : int):

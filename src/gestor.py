@@ -1,5 +1,5 @@
-from flies import NationalFly, InternationalFly
-from airline import Airline
+from .flies import NationalFly, InternationalFly
+from .airline import Airline
 from datetime import date, datetime
 import os
 import json

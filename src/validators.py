@@ -1,4 +1,4 @@
-from gestor import FliesGestor
+from .gestor import FliesGestor
 
 def is_text_valid(*text : str) -> bool:
     valid = True

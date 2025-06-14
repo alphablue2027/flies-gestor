@@ -1,4 +1,4 @@
-from serializable import Serializable
+from .serializable import Serializable
 
 class Airline(Serializable):
     def __init__(self, name : str, code : str, planes_number : int, nationality : str):

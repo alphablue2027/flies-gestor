@@ -1,5 +1,5 @@
-from serializable import Serializable
-from plane import Plane
+from .serializable import Serializable
+from .plane import Plane
 from datetime import datetime
 
 class NationalFly(Serializable):
