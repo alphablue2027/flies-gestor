@@ -12,7 +12,7 @@ class Airline(Serializable):
         return self._name
     
     @name.setter
-    def name(self, value):
+    def name(self, value : str):
         self._name = value
     
     @property
@@ -20,7 +20,7 @@ class Airline(Serializable):
         return self._code
     
     @code.setter
-    def code(self, value):
+    def code(self, value : str):
         self._code = value
     
     @property
@@ -28,7 +28,7 @@ class Airline(Serializable):
         return self._planes_number
     
     @planes_number.setter
-    def planes_number(self, value):
+    def planes_number(self, value : int):
         self._planes_number = value
     
     @property
@@ -36,7 +36,7 @@ class Airline(Serializable):
         return self._nationality
     
     @nationality.setter
-    def nationality(self, value):
+    def nationality(self, value : str):
         self._nationality = value
     
     def serialize(self):

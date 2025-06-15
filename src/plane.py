@@ -12,7 +12,7 @@ class Plane(Serializable):
         return self._mark
     
     @mark.setter
-    def mark(self, value):
+    def mark(self, value : str):
         self._mark = value
     
     @property
@@ -20,7 +20,7 @@ class Plane(Serializable):
         return self._model
     
     @model.setter
-    def model(self, value):
+    def model(self, value : str):
         self._model = value
     
     @property
@@ -28,7 +28,7 @@ class Plane(Serializable):
         return self._matricule
     
     @matricule.setter
-    def matricule(self, value):
+    def matricule(self, value : str):
         self._matricule = value
     
     @property
@@ -36,7 +36,7 @@ class Plane(Serializable):
         return self._capacity
     
     @capacity.setter
-    def capacity(self, value):
+    def capacity(self, value : int):
         self._capacity = value
     
     def serialize(self):

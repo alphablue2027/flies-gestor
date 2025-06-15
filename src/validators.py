@@ -30,15 +30,25 @@ def is_fcode_valid(code : str, acode : str) -> bool:
     valid = True
     if not (len(code) >= 3 and code[:2] == acode):
         valid = False
-    elif not (code[2:].isdigit() and not list(filter(lambda f : f.code == code, FliesGestor.get_nationals() + FliesGestor.get_internationals()))):
+    elif not code[2:].isdigit():
         valid = False
     return valid
 
+def is_fcode_exist(code : str) -> bool:
+    if list(filter(lambda f : f.code == code, FliesGestor.get_nationals() + FliesGestor.get_internationals())):
+        return False
+    return True
+
 def is_acode_valid(code : str) -> bool:
     valid = False
-    if len(code) == 2 and code.isalpha() and not list(filter(lambda a : a.code == code, FliesGestor.get_airlines())):
+    if len(code) == 2 and code.isalpha():
         valid = True
     return valid
+
+def is_acode_exist(code : str) -> bool:
+    if list(filter(lambda a : a.code == code, FliesGestor.get_airlines())):
+        return False
+    return True
 
 def is_mm_valid(*text : str) -> bool:
     valid = True

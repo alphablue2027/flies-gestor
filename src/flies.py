@@ -17,7 +17,7 @@ class NationalFly(Serializable):
         return self._code
     
     @code.setter
-    def code(self, value):
+    def code(self, value : str):
         self._code = value
     
     @property
@@ -25,7 +25,7 @@ class NationalFly(Serializable):
         return self._inner
     
     @inner.setter
-    def inner(self, value):
+    def inner(self, value : bool):
         self._inner = value
 
     @property
@@ -33,7 +33,7 @@ class NationalFly(Serializable):
         return self._airline
     
     @airline.setter
-    def airline(self, value):
+    def airline(self, value : str):
         self._airline = value
 
     @property
@@ -41,7 +41,7 @@ class NationalFly(Serializable):
         return self._init_city
     
     @init_city.setter
-    def init_city(self, value):
+    def init_city(self, value : str):
         self._init_city = value
     
     @property
@@ -49,7 +49,7 @@ class NationalFly(Serializable):
         return self._end_city
     
     @end_city.setter
-    def end_city(self, value):
+    def end_city(self, value : str):
         self._end_city = value
     
     @property
@@ -65,7 +65,7 @@ class NationalFly(Serializable):
         return self._plane
     
     @plane.setter
-    def plane(self, value):
+    def plane(self, value : Plane):
         self._plane = value
     
     def serialize(self):
