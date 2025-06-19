@@ -2,23 +2,25 @@ from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from src.gestor import FliesGestor
 from src.validators import *
 from src import link
-import sys, time
+import sys
 
+# Clase que carga la ventana principal, es la base del programa
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi("./design/main.ui", self)
         self.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WidgetAttribute.WA_TranslucentBackground)
-
+        self.maximized = False
+        
         self.overlay = QtWidgets.QWidget(self.centralWidget())
         self.config_menu_transitions()
-
+        
         self.av = AcceptPanel()
         self.cv = ConfirmPanel()
-
-        self.oe = dict()
-
+        
+        self.oe = self.frame.graphicsEffect()
+        
         self.stackedWidget.setCurrentIndex(0)
         FliesGestor.clean_links()
         self.load()
@@ -62,7 +64,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 for i, fly in enumerate(FliesGestor.get_internationals()):
                     self.listTableI.insertRow(i)
                     self.listTableI.setItem(i, 0, QtWidgets.QTableWidgetItem(fly.code))
-                    self.listTableI.setItem(i, 1, QtWidgets.QTableWidgetItem(str(fly.inner)))
+                    self.listTableI.setItem(i, 1, QtWidgets.QTableWidgetItem("Si" if fly.inner else "No"))
                     self.listTableI.setItem(i, 2, QtWidgets.QTableWidgetItem(fly.airline))
                     self.listTableI.setItem(i, 3, QtWidgets.QTableWidgetItem(fly.init_city))
                     self.listTableI.setItem(i, 4, QtWidgets.QTableWidgetItem(fly.end_city))
@@ -72,7 +74,7 @@ class MainWindow(QtWidgets.QMainWindow):
                     self.listTableI.setItem(i, 8, QtWidgets.QTableWidgetItem(fly.plane.matricule))
                     self.listTableI.setItem(i, 9, QtWidgets.QTableWidgetItem(str(fly.plane.capacity)))
                     self.listTableI.setItem(i, 10, QtWidgets.QTableWidgetItem(fly.destiny))
-                    self.listTableI.setItem(i, 11, QtWidgets.QTableWidgetItem(str(fly.scale)))
+                    self.listTableI.setItem(i, 11, QtWidgets.QTableWidgetItem("Si" if fly.scale else "No"))
                     self.listTableI.setItem(i, 12, QtWidgets.QTableWidgetItem(str(fly.scale_number)))         
             case 1:
                 self.listTableN.setRowCount(0)
@@ -80,7 +82,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 for i, fly in enumerate(FliesGestor.get_nationals()):
                     self.listTableN.insertRow(i)
                     self.listTableN.setItem(i, 0, QtWidgets.QTableWidgetItem(fly.code))
-                    self.listTableN.setItem(i, 1, QtWidgets.QTableWidgetItem(str(fly.inner)))
+                    self.listTableN.setItem(i, 1, QtWidgets.QTableWidgetItem("Si" if fly.inner else "No"))
                     self.listTableN.setItem(i, 2, QtWidgets.QTableWidgetItem(fly.airline))
                     self.listTableN.setItem(i, 3, QtWidgets.QTableWidgetItem(fly.init_city))
                     self.listTableN.setItem(i, 4, QtWidgets.QTableWidgetItem(fly.end_city))
@@ -93,11 +95,13 @@ class MainWindow(QtWidgets.QMainWindow):
     def getListPanel(self):
         self.loadTable(self.listOptions.currentIndex())
         self.stackedWidget.setCurrentIndex(0)
-        self.changeAsidePanel()
+        if self.overlay.isVisible():
+            self.changeAsidePanel()
 
     def getListNPanel(self):
         self.stackedWidget.setCurrentIndex(1)
-        self.changeAsidePanel()
+        if self.overlay.isVisible():
+            self.changeAsidePanel()
 
     def addFlyPanel(self):
         if self.listOptions.currentIndex() == 1:
@@ -125,43 +129,55 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def addAirlinePanel(self):
         self.stackedWidget.setCurrentIndex(3)
-        self.changeAsidePanel()
+        if self.overlay.isVisible():
+            self.changeAsidePanel()
 
     def delFlyPanel(self):
-        self.stackedWidget.setCurrentIndex(4)
+        if not (FliesGestor.get_internationals() + FliesGestor.get_nationals()):
+            self.get_acept_panel("Agregue primero vuelos para continuar", False)
+        else:
+            self.codeDelInput.clear()
+            codes = list(map(lambda f : f.code, (FliesGestor.get_internationals() + FliesGestor.get_nationals())))
+            self.codeDelInput.addItems(codes)
+            self.stackedWidget.setCurrentIndex(4)
 
     def delAirlinePanel(self):
         if not FliesGestor.get_airlines():
             self.get_acept_panel("Agregue primero aerolineas para continuar", False)
         else:
+            self.codeADelInput.clear()
+            codes = list(map(lambda a : a.code, (FliesGestor.get_airlines())))
+            self.codeADelInput.addItems(codes)
             self.stackedWidget.setCurrentIndex(5)
-            self.changeAsidePanel()
+            if self.overlay.isVisible():
+                self.changeAsidePanel()
 
     def getAirlinePanel(self):
         if not (FliesGestor.get_internationals() + FliesGestor.get_nationals()):
             self.get_acept_panel("Agregue primero vuelos para continuar", False)
         else:
+            self.codeGetAirInput.clear()
+            codes = list(map(lambda f : f.code, (FliesGestor.get_internationals() + FliesGestor.get_nationals())))
+            self.codeGetAirInput.addItems(codes)
             self.stackedWidget.setCurrentIndex(6)
-            self.changeAsidePanel()
+            if self.overlay.isVisible():
+                self.changeAsidePanel()
 
     def getPorcentPanel(self):
         if not FliesGestor.get_internationals():
             self.get_acept_panel("Agregue primero vuelos internacionales para continuar", False)
         else:
             self.airlinePorcentInput.clear()
-            airs = set()
-            for i in FliesGestor.get_internationals():
-                airs.add(i.airline)
+            airs = set(map(lambda f : f.airline, FliesGestor.get_internationals()))
             self.airlinePorcentInput.addItems(airs)
             
             self.markPorcentInput.clear()
-            marks = set()
-            for i in FliesGestor.get_internationals():
-                marks.add(i.plane.mark)
+            marks = set(map(lambda f : f.plane.mark, FliesGestor.get_internationals()))
             self.markPorcentInput.addItems(marks)
 
             self.stackedWidget.setCurrentIndex(7)
-            self.changeAsidePanel()
+            if self.overlay.isVisible():
+                self.changeAsidePanel()
 
     def getAvgPanel(self):
         if not FliesGestor.get_internationals():
@@ -170,15 +186,18 @@ class MainWindow(QtWidgets.QMainWindow):
             self.destinyAvgInput.clear()
             destinies = set(map(lambda f : f.destiny, filter(lambda f : not f.inner, FliesGestor.get_internationals())))
             self.destinyAvgInput.addItems(destinies)
+
             self.stackedWidget.setCurrentIndex(8)
-            self.changeAsidePanel()
+            if self.overlay.isVisible():
+                self.changeAsidePanel()
 
     def getScalestPanel(self):
         if not FliesGestor.get_internationals():
             self.get_acept_panel("Agregue primero vuelos internacionales para continuar", False)
         else:
             self.stackedWidget.setCurrentIndex(9)
-            self.changeAsidePanel()
+            if self.overlay.isVisible():
+                self.changeAsidePanel()
     
     def get_acept_panel(self, txt : str, positive : bool):
         self.av.acceptLabel.setText(txt)
@@ -238,7 +257,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.get_acept_panel("Los campos de modelo y matricula del avion no pueden estar vacios ni contener espacios", False)
         elif self.listOptions.currentIndex() == 0:
             destiny = self.destinyAddInput.text().strip()
-            if not (is_text_valid(destiny) and is_name_valid(destiny)):
+            if not is_name_valid(destiny):
                 self.get_acept_panel("El campo de destino no puede estar vacio ni contener numeros", False)
             scale = self.scaleAddCheck.isChecked()
             number = self.numberAddInput.value()
@@ -279,22 +298,24 @@ class MainWindow(QtWidgets.QMainWindow):
             self.get_acept_panel("El codigo de aerolinea debe contener exactamente 2 caracteres", False)
         elif not is_acode_exist(code):
             self.get_acept_panel("El codigo de aerolinea ya esta en uso", False)
-        elif not is_aname_valid(name):
+        elif not is_name_exist(name):
             self.get_acept_panel("El nombre de aerolinea ya esta en uso", False)
         else:
             FliesGestor.add_airline(code, name, nation, planes)
             self.get_acept_panel("Agregado correctamente", True)
 
     def delFly(self):
-        code = self.codeDelInput.text().strip()
+        code = self.codeDelInput.currentText()
         FliesGestor.del_fly(code)
+        self.get_acept_panel("Eliminado correctamente", True)
+        self.delFlyPanel()
 
     def delAirline(self):
         self.get_confirm_panel("Esta accion eliminara ademas todos los vuelos asociados. Desea continuar?")
         self.cv.connect_del = True
 
     def getAirline(self):
-        code = self.codeGetAirInput.text().strip()
+        code = self.codeGetAirInput.currentText()
         airline = FliesGestor.get_airline(code)
         if not airline:
             self.nameDataGetAir.setText("N/A")
@@ -364,14 +385,12 @@ class MainWindow(QtWidgets.QMainWindow):
             self.transition.setStartValue(w)
             self.transition.setEndValue(0)
             self.transition.finished.connect(self.overlay.hide)
-            for widget, effect in self.oe.items():
-                widget.setGraphicsEffect(effect)
+            self.frame.setGraphicsEffect(self.oe)
         else:
             self.overlay.setGeometry(self.frame.geometry())
             self.overlay.show()
             self.overlay.raise_()
             
-            self.oe[self.frame] = self.frame.graphicsEffect()
             blur = QtWidgets.QGraphicsBlurEffect()
             blur.setBlurRadius(4)
             self.frame.setGraphicsEffect(blur)
@@ -395,13 +414,31 @@ class MainWindow(QtWidgets.QMainWindow):
     def confirm(self):
         self.cv.close()
         if self.cv.connect_del:
-            code = self.codeADelInput.text().strip().upper()
+            code = self.codeADelInput.currentText()
             FliesGestor.del_airline(code)
+            self.get_acept_panel("Eliminada correctamente", True)
+            self.delAirlinePanel()
         else:
             exit()
 
     def cancel(self):
         self.cv.close()
+
+    def minimize(self):
+        self.showMinimized()
+
+    def maximize(self):
+        if self.maximized:
+            self.showNormal()
+            self.maxBttn.setIcon(QtGui.QIcon(QtGui.QPixmap(":/icons/max")))
+            self.maximized = False
+        else:
+            if self.overlay.isVisible():
+                self.overlay.hide()
+                self.frame.setGraphicsEffect(self.oe)
+            self.showMaximized()
+            self.maxBttn.setIcon(QtGui.QIcon(QtGui.QPixmap(":/icons/maxr")))
+            self.maximized = True
 
     def exit(self):
         if FliesGestor.close():
@@ -439,7 +476,10 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.menuBttn.clicked.connect(self.changeAsidePanel)
         self.overlay.mousePressEvent = self.mouse_clicked
+        self.minBttn.clicked.connect(self.minimize)
+        self.maxBttn.clicked.connect(self.maximize)
         self.exitBttn.clicked.connect(self.exit)
+
         self.cv.confirmButton.clicked.connect(self.confirm)
         self.cv.cancelButton.clicked.connect(self.cancel)
         self.av.acceptButton.clicked.connect(self.accept)
