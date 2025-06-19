@@ -6,18 +6,21 @@ import json
 
 class FilesGestor:
     def __init__(self):
+        self.verify_files()
+    
+    def verify_files(self) -> bool:
         try:
             os.makedirs("./data/", exist_ok=True)
+            return True
         except OSError:
-            pass
+            return False
 
     def __list_serializer(self, l : list) -> list:
-        sl = list()
-        for i in l:
-            sl.append(i.serialize())
+        sl = list(map(lambda i : i.serialize(), l))
         return sl
     
     def save(self, nationals : list[NationalFly], internationals : list, airlines : list) -> bool:
+        self.verify_files()
         nf = self.__list_serializer(nationals) 
         inf = self.__list_serializer(internationals)
         air = self.__list_serializer(airlines)
@@ -39,14 +42,11 @@ class FilesGestor:
         airlines = list()
         try:
             with open("./data/nationals.json", 'r', encoding='utf-8') as file:
-                fly = json.load(file, object_hook= NationalFly.deserialize)
-                nationals = fly
+                nationals = json.load(file, object_hook= NationalFly.deserialize)
             with open("./data/internationals.json", 'r', encoding='utf-8') as file:
-                fly = json.load(file, object_hook=InternationalFly.deserialize)
-                internationals = fly
+                internationals = json.load(file, object_hook=InternationalFly.deserialize)
             with open("./data/airlines.json", 'r', encoding='utf-8') as file:
-                air = json.load(file, object_hook= Airline.deserialize)
-                airlines = air
+                airlines = json.load(file, object_hook= Airline.deserialize)
         except Exception as e:
             pass
         finally:
@@ -121,22 +121,14 @@ class FliesGestor:
 
     @classmethod
     def get_internationals_porcent(cls, mark : str, name : str) -> tuple[int, int, int]:
-        flies = list()
-        for i in cls.get_internationals():
-            if i.airline == name:
-                flies.append(i)
-        c = 0
-        for i in flies:
-            if i.plane.mark == mark:
-                c += 1
+        flies = list(filter(lambda f : f.airline == name, cls.get_internationals()))
+        c = len(list(filter(lambda f : f.plane.mark == mark, flies)))
         return c, len(flies), c*100//len(flies)
     
     @classmethod
     def get_passagers_avg(cls, destiny: str) -> tuple[int, list[InternationalFly]]:
-        s = 0
         l = list(filter(lambda f: f.destiny == destiny, cls.get_internationals()))
-        for i in l:
-            s += i.plane.capacity
+        s = sum(list(map(lambda f : f.plane.capacity, l)))
         return s//len(l), l
     
     @classmethod
@@ -154,15 +146,9 @@ class FliesGestor:
         
     @classmethod
     def clean_links(cls):
-        air_names = list()
-        for i in cls.__airlines:
-            air_names.append(i.name)
-        for i in cls.__internationals:
-            if not i.airline in air_names:
-                cls.__internationals.remove(i)
-        for i in cls.__nationals:
-            if not i.airline in air_names:
-                cls.__nationals.remove(i)
+        air_names = list(map(lambda a : a.name, cls.__airlines))
+        cls.__internationals = list(filter(lambda f : f.airline in air_names, cls.get_internationals()))
+        cls.__nationals = list(filter(lambda f : f.airline in air_names, cls.get_nationals()))
     
     @classmethod
     def close(cls) -> bool:

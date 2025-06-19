@@ -39,17 +39,16 @@ class Airline(Serializable):
     def nationality(self, value : str):
         self._nationality = value
     
-    def serialize(self):
-        d = {
+    def serialize(self) -> dict:
+        return {
             'name' : self.name,
             'code' : self.code,
             'planes_number' : self.planes_number,
             'nationality' : self.nationality
         }
-        return d
 
     @classmethod
-    def deserialize(cls, data : dict):
+    def deserialize(cls, data : dict) -> object:
         return cls(
             code = data['code'],
             name = data['name'],

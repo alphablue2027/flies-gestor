@@ -39,17 +39,16 @@ class Plane(Serializable):
     def capacity(self, value : int):
         self._capacity = value
     
-    def serialize(self):
-        d = {
+    def serialize(self) -> dict:
+        return {
             'mark' : self.mark,
             'model' : self.model,
             'matricule' : self.matricule,
             'capacity' : self.capacity
         }
-        return d
     
     @classmethod
-    def deserialize(cls, data : dict):
+    def deserialize(cls, data : dict) -> object:
         return cls(
             mark = data['mark'],
             model = data['model'],

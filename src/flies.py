@@ -110,7 +110,7 @@ class InternationalFly(NationalFly):
         return self._destiny
     
     @destiny.setter
-    def destiny(self, value):
+    def destiny(self, value : str):
         self._destiny = value
     
     @property
@@ -118,7 +118,7 @@ class InternationalFly(NationalFly):
         return self._scale
     
     @scale.setter
-    def scale(self, value):
+    def scale(self, value : bool):
         self._scale = value
     
     @property
@@ -126,7 +126,7 @@ class InternationalFly(NationalFly):
         return self._scale_number
     
     @scale_number.setter
-    def scale_number(self, value):
+    def scale_number(self, value : int):
         self._scale_number = value
     
     def serialize(self):
