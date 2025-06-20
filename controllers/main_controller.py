@@ -2,17 +2,16 @@ from PyQt5 import QtWidgets, QtGui
 from .confirm_controllers import ConfirmControllers
 from .accept_controlers import AcceptControllers
 from .validators import *
-from ..src.gestor import FliesGestor
-from ..design.main_view import MainWindow
+from models.gestor import FliesGestor
+from views.main_view import MainWindow
 import sys
 
 class MainController:
     def __init__(self) -> None:
-        self.ap = AcceptControllers()
-        self.cp = ConfirmControllers()
-
         app = QtWidgets.QApplication(sys.argv)
         self.mp = MainWindow()
+        self.ap = AcceptControllers()
+        self.cp = ConfirmControllers()
         self.evts()
         self.getListPanel()
         self.mp.show()
@@ -72,7 +71,7 @@ class MainController:
         if not FliesGestor.get_internationals():
             self.ap.show_accept_panel("Agregue primero vuelos internacionales para continuar", False)
         else:
-            self.getScalestPanel()
+            self.mp.getScalestPanel()
     
     def getListN(self):
         date = self.mp.getListN()
@@ -209,5 +208,5 @@ class MainController:
         self.mp.menuBttn.clicked.connect(self.changeAsidePanel)
         self.mp.overlay.mousePressEvent = self.mouseClicked
         self.mp.minBttn.clicked.connect(self.minimize)
-        self.mp.clicked.connect(self.maximize)
+        self.mp.maxBttn.clicked.connect(self.maximize)
         self.mp.exitBttn.clicked.connect(self.exit)

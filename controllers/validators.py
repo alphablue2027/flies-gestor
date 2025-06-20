@@ -1,4 +1,4 @@
-from ..src.gestor import FliesGestor
+from models.gestor import FliesGestor
 
 def is_name_valid(*name : str) -> bool:
     for i in name:

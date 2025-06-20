@@ -1,6 +1,4 @@
-from ..design.confirm_view import ConfirmPanel
-from ..design.main_view import MainWindow
-from ..src.gestor import FliesGestor
+from views.confirm_view import ConfirmPanel
 
 class ConfirmControllers:
     def __init__(self):

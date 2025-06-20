@@ -1,4 +1,4 @@
-from ..design.accept_view import AcceptPanel
+from views.accept_view import AcceptPanel
 
 class AcceptControllers:
     def __init__(self) -> None:
