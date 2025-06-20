@@ -1,0 +1,15 @@
+from ..design.accept_view import AcceptPanel
+
+class AcceptControllers:
+    def __init__(self) -> None:
+        self.av = AcceptPanel()
+        self.evts()
+    
+    def accept(self):
+        self.av.close()
+
+    def show_accept_panel(self, txt : str, positive : bool):
+        self.av.get_acept_panel(txt, positive)
+
+    def evts(self):
+        self.av.acceptButton.clicked.connect(self.accept)
