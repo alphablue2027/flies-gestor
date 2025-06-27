@@ -1,0 +1,13 @@
+<RCC>
+  <qresource prefix="/">
+    <file>icons/max.svg</file>
+    <file>icons/maxr.svg</file>
+    <file>icons/error.svg</file>
+    <file>icons/exit.svg</file>
+    <file>icons/exp.svg</file>
+    <file>icons/info.svg</file>
+    <file>icons/menu.svg</file>
+    <file>icons/min.svg</file>
+    <file>icons/quest.svg</file>
+  </qresource>
+</RCC>
