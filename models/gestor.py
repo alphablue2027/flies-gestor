@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-with-Commons-Clause
+# Copyright (C) 2025 Ordnay Perez Hernandez - ¡Uso comercial prohibido sin permiso!
 from .flies import NationalFly, InternationalFly
 from .airline import Airline
 from datetime import date, datetime

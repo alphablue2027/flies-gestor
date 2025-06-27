@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-with-Commons-Clause
+# Copyright (C) 2025 Ordnay Perez Hernandez - ¡Uso comercial prohibido sin permiso!
 from views.accept_view import AcceptPanel
 
 class AcceptControllers:

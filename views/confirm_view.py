@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-with-Commons-Clause
+# Copyright (C) 2025 Ordnay Perez Hernandez - ¡Uso comercial prohibido sin permiso!
 from PyQt5 import QtWidgets, QtCore, QtGui, uic
 from models import link
 

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-with-Commons-Clause
+# Copyright (C) 2025 Ordnay Perez Hernandez - ¡Uso comercial prohibido sin permiso!
 from models.gestor import FliesGestor
 
 def is_name_valid(*name : str) -> bool:
