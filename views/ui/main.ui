@@ -572,7 +572,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Flies Gestor</string>
+   <string>Flights Gestor</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QMainWindow{
@@ -761,7 +761,7 @@ QPushButton:hover {
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../link.qrc">
+          <iconset>
            <normaloff>:/icons/menu.svg</normaloff>:/icons/menu.svg</iconset>
          </property>
          <property name="iconSize">
@@ -840,7 +840,7 @@ letter-spacing: 5px;</string>
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../link.qrc">
+          <iconset>
            <normaloff>:/icons/min.svg</normaloff>:/icons/min.svg</iconset>
          </property>
         </widget>
@@ -866,7 +866,7 @@ letter-spacing: 5px;</string>
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../link.qrc">
+          <iconset>
            <normaloff>:/icons/max.svg</normaloff>:/icons/max.svg</iconset>
          </property>
         </widget>
@@ -892,7 +892,7 @@ letter-spacing: 5px;</string>
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="../link.qrc">
+          <iconset>
            <normaloff>:/icons/exit.svg</normaloff>:/icons/exit.svg</iconset>
          </property>
          <property name="iconSize">
@@ -1034,7 +1034,7 @@ QPushButton:hover {
              </font>
             </property>
             <property name="text">
-             <string>Agregar aerolinea</string>
+             <string>Agregar aerolínea</string>
             </property>
            </widget>
           </item>
@@ -1046,7 +1046,7 @@ QPushButton:hover {
              </font>
             </property>
             <property name="text">
-             <string>Eliminar aerolinea</string>
+             <string>Eliminar aerolínea</string>
             </property>
            </widget>
           </item>
@@ -1058,7 +1058,7 @@ QPushButton:hover {
              </font>
             </property>
             <property name="text">
-             <string>Obtener aerolinea</string>
+             <string>Obtener aerolínea</string>
             </property>
            </widget>
           </item>
@@ -1175,7 +1175,7 @@ QPushButton:hover {
              <enum>QFrame::NoFrame</enum>
             </property>
             <property name="currentIndex">
-             <number>7</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="listPanel">
              <layout class="QVBoxLayout" name="verticalLayout_20">
@@ -1383,17 +1383,17 @@ padding: 0 20px;</string>
                        </attribute>
                        <column>
                         <property name="text">
-                         <string>Codigo</string>
+                         <string>Código</string>
                         </property>
                        </column>
                        <column>
                         <property name="text">
-                         <string>Entrante</string>
+                         <string>Dirección</string>
                         </property>
                        </column>
                        <column>
                         <property name="text">
-                         <string>Aerolinea</string>
+                         <string>Aerolínea</string>
                         </property>
                        </column>
                        <column>
@@ -1423,7 +1423,7 @@ padding: 0 20px;</string>
                        </column>
                        <column>
                         <property name="text">
-                         <string>Matricula</string>
+                         <string>Matrícula</string>
                         </property>
                        </column>
                        <column>
@@ -1506,17 +1506,17 @@ padding: 0 20px;</string>
                        </attribute>
                        <column>
                         <property name="text">
-                         <string>Codigo</string>
+                         <string>Código</string>
                         </property>
                        </column>
                        <column>
                         <property name="text">
-                         <string>Entrante</string>
+                         <string>Dirección</string>
                         </property>
                        </column>
                        <column>
                         <property name="text">
-                         <string>Aerolinea</string>
+                         <string>Aerolínea</string>
                         </property>
                        </column>
                        <column>
@@ -1546,7 +1546,7 @@ padding: 0 20px;</string>
                        </column>
                        <column>
                         <property name="text">
-                         <string>Matricula</string>
+                         <string>Matrícula</string>
                         </property>
                        </column>
                        <column>
@@ -1566,7 +1566,7 @@ padding: 0 20px;</string>
                        </column>
                        <column>
                         <property name="text">
-                         <string>Numero-Escalas</string>
+                         <string>Número-Escalas</string>
                         </property>
                        </column>
                       </widget>
@@ -1968,17 +1968,17 @@ border: none;</string>
                    </attribute>
                    <column>
                     <property name="text">
-                     <string>Codigo</string>
+                     <string>Código</string>
                     </property>
                    </column>
                    <column>
                     <property name="text">
-                     <string>Entrante</string>
+                     <string>Dirección</string>
                     </property>
                    </column>
                    <column>
                     <property name="text">
-                     <string>Aerolinea</string>
+                     <string>Aerolínea</string>
                     </property>
                    </column>
                    <column>
@@ -2008,7 +2008,7 @@ border: none;</string>
                    </column>
                    <column>
                     <property name="text">
-                     <string>Matricula</string>
+                     <string>Matrícula</string>
                     </property>
                    </column>
                    <column>
@@ -2154,7 +2154,7 @@ border-radius: 0;</string>
 border: none;</string>
                       </property>
                       <property name="text">
-                       <string>Codigo:</string>
+                       <string>Código:</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2287,22 +2287,10 @@ border: none;</string>
 border: none;</string>
                       </property>
                       <property name="text">
-                       <string>Entrante:</string>
+                       <string>Dirección:</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="1" column="1">
-                     <widget class="QCheckBox" name="inAddCheck">
-                      <property name="styleSheet">
-                       <string notr="true">background: #fff;
-padding: 0;
-border:none;</string>
-                      </property>
-                      <property name="text">
-                       <string/>
                       </property>
                      </widget>
                     </item>
@@ -2376,7 +2364,7 @@ border: none;</string>
 border: none;</string>
                       </property>
                       <property name="text">
-                       <string>Aerolinea:</string>
+                       <string>Aerolínea:</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2517,7 +2505,7 @@ border: none;</string>
 border: none;</string>
                       </property>
                       <property name="text">
-                       <string>Matricula:</string>
+                       <string>Matrícula:</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2768,7 +2756,7 @@ border:none;</string>
 border: none;</string>
                       </property>
                       <property name="text">
-                       <string>Numero-Escalas:</string>
+                       <string>Número-Escalas:</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2806,6 +2794,29 @@ border: none;</string>
                       <property name="value">
                        <number>0</number>
                       </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QComboBox" name="inAddInput">
+                      <property name="minimumSize">
+                       <size>
+                        <width>0</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                      <property name="currentIndex">
+                       <number>0</number>
+                      </property>
+                      <item>
+                       <property name="text">
+                        <string>Saliente</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>Entrante</string>
+                       </property>
+                      </item>
                      </widget>
                     </item>
                    </layout>
@@ -3050,7 +3061,7 @@ border: none;</string>
 border: none;</string>
                       </property>
                       <property name="text">
-                       <string>Codigo:</string>
+                       <string>Código:</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3127,7 +3138,7 @@ border: none;</string>
 border: none;</string>
                       </property>
                       <property name="text">
-                       <string>Numero-Aviones:</string>
+                       <string>Número-Aviones:</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -3370,7 +3381,7 @@ border: none;
 padding: 0 10px;</string>
                       </property>
                       <property name="text">
-                       <string>Codigo de Vuelo:</string>
+                       <string>Código de Vuelo:</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>
@@ -3601,7 +3612,7 @@ border: none;
 padding: 0 10px;</string>
                       </property>
                       <property name="text">
-                       <string>Codigo de Aerolinea:</string>
+                       <string>Código de Aerolínea:</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>
@@ -3841,7 +3852,7 @@ border-radius: 0;</string>
 border: none;</string>
                          </property>
                          <property name="text">
-                          <string>Codigo de Vuelo:</string>
+                          <string>Código de Vuelo:</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>
@@ -3916,7 +3927,7 @@ color: #187;
 letter-spacing: 2px;</string>
                          </property>
                          <property name="text">
-                          <string>Datos de la Aerolinea:</string>
+                          <string>Datos de la Aerolínea:</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>
@@ -4083,7 +4094,7 @@ border: none;</string>
 border: none;</string>
                             </property>
                             <property name="text">
-                             <string>Codigo: </string>
+                             <string>Código: </string>
                             </property>
                             <property name="alignment">
                              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -4383,7 +4394,7 @@ border: none;</string>
 border: none;</string>
                       </property>
                       <property name="text">
-                       <string>Aerolinea:</string>
+                       <string>Aerolínea:</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignBottom|Qt::AlignHCenter</set>
@@ -4491,7 +4502,7 @@ border: none;</string>
 border: none;</string>
                       </property>
                       <property name="text">
-                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cantidad de vuelos de la&lt;/p&gt;&lt;p&gt;marca y aerolinea especificados&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cantidad de vuelos de la&lt;/p&gt;&lt;p&gt;marca y aerolínea especificados&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignBottom|Qt::AlignHCenter</set>
@@ -4525,7 +4536,7 @@ border: none;</string>
 border: none;</string>
                       </property>
                       <property name="text">
-                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Total de vuelos Internacionales de&lt;/p&gt;&lt;p&gt; la aerolinea seleccionada&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Total de vuelos Internacionales de&lt;/p&gt;&lt;p&gt; la aerolínea seleccionada&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignBottom|Qt::AlignHCenter</set>
@@ -5011,7 +5022,7 @@ border: none;</string>
                       </attribute>
                       <column>
                        <property name="text">
-                        <string>Codigo de vuelo</string>
+                        <string>Código de vuelo</string>
                        </property>
                       </column>
                       <column>
@@ -5351,7 +5362,7 @@ QLabel {
                           </font>
                          </property>
                          <property name="text">
-                          <string>Numero-Escalas: </string>
+                          <string>Número-Escalas: </string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>
@@ -5393,7 +5404,7 @@ QLabel {
                           </font>
                          </property>
                          <property name="text">
-                          <string>Codigo: </string>
+                          <string>Código: </string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>
@@ -5540,7 +5551,7 @@ QLabel {
                           </font>
                          </property>
                          <property name="text">
-                          <string>Matricula: </string>
+                          <string>Matrícula: </string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>
@@ -5645,7 +5656,7 @@ QLabel {
                           </font>
                          </property>
                          <property name="text">
-                          <string>Entrante: </string>
+                          <string>Dirección:</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>
@@ -5708,7 +5719,7 @@ QLabel {
                           </font>
                          </property>
                          <property name="text">
-                          <string>Aerolinea: </string>
+                          <string>Aerolínea: </string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignCenter</set>

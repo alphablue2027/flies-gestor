@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: AGPL-3.0-with-Commons-Clause
 # Copyright (C) 2025 Ordnay Perez Hernandez - ¡Uso comercial prohibido sin permiso!
 from PyQt5 import QtWidgets, QtGui, QtCore, uic
-from datetime import date
+from datetime import date, datetime
 from models import link
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -16,6 +16,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.config_menu_transitions()
 
         self.oe = self.frame.graphicsEffect()
+        
+        self.dateAddInput.setMinimumDateTime(datetime.today())
+        self.dateAddInput.setDate(datetime.today())
+        self.dateListNInput.setDate(datetime.today())
+        self.dateScalestInput.setDate(datetime.today())
 
         self.stackedWidget.setCurrentIndex(0)
 
@@ -50,15 +55,15 @@ class MainWindow(QtWidgets.QMainWindow):
         shadow.setColor(QtCore.Qt.GlobalColor.lightGray)
         return shadow
 
-    def loadTable(self, c: int, flies : list):
+    def loadTable(self, c: int, flights : list):
         match c:
             case 0:
                 self.listTableI.setRowCount(0)
                 self.stackedList.setCurrentIndex(1)
-                for i, fly in enumerate(flies):
+                for i, fly in enumerate(flights):
                     self.listTableI.insertRow(i)
                     self.listTableI.setItem(i, 0, QtWidgets.QTableWidgetItem(fly.code))
-                    self.listTableI.setItem(i, 1, QtWidgets.QTableWidgetItem("Si" if fly.inner else "No"))
+                    self.listTableI.setItem(i, 1, QtWidgets.QTableWidgetItem("Entrante" if fly.inner else "Saliente"))
                     self.listTableI.setItem(i, 2, QtWidgets.QTableWidgetItem(fly.airline))
                     self.listTableI.setItem(i, 3, QtWidgets.QTableWidgetItem(fly.init_city))
                     self.listTableI.setItem(i, 4, QtWidgets.QTableWidgetItem(fly.end_city))
@@ -73,10 +78,10 @@ class MainWindow(QtWidgets.QMainWindow):
             case 1:
                 self.listTableN.setRowCount(0)
                 self.stackedList.setCurrentIndex(0)
-                for i, fly in enumerate(flies):
+                for i, fly in enumerate(flights):
                     self.listTableN.insertRow(i)
                     self.listTableN.setItem(i, 0, QtWidgets.QTableWidgetItem(fly.code))
-                    self.listTableN.setItem(i, 1, QtWidgets.QTableWidgetItem("Si" if fly.inner else "No"))
+                    self.listTableN.setItem(i, 1, QtWidgets.QTableWidgetItem("Entrante" if fly.inner else "Saliente"))
                     self.listTableN.setItem(i, 2, QtWidgets.QTableWidgetItem(fly.airline))
                     self.listTableN.setItem(i, 3, QtWidgets.QTableWidgetItem(fly.init_city))
                     self.listTableN.setItem(i, 4, QtWidgets.QTableWidgetItem(fly.end_city))
@@ -86,8 +91,8 @@ class MainWindow(QtWidgets.QMainWindow):
                     self.listTableN.setItem(i, 8, QtWidgets.QTableWidgetItem(fly.plane.matricule))
                     self.listTableN.setItem(i, 9, QtWidgets.QTableWidgetItem(str(fly.plane.capacity)))
 
-    def getListPanel(self, t : int, flies : list):
-        self.loadTable(t, flies)
+    def getListPanel(self, t : int, flights : list):
+        self.loadTable(t, flights)
         self.stackedWidget.setCurrentIndex(0)
         if self.overlay.isVisible():
             self.changeAsidePanel()
@@ -123,9 +128,9 @@ class MainWindow(QtWidgets.QMainWindow):
         if self.overlay.isVisible():
             self.changeAsidePanel()
 
-    def delFlyPanel(self, flies : list):
+    def delFlyPanel(self, flights : list):
         self.codeDelInput.clear()
-        codes = list(map(lambda f : f.code, (flies)))
+        codes = list(map(lambda f : f.code, (flights)))
         self.codeDelInput.addItems(codes)
         self.stackedWidget.setCurrentIndex(4)
 
@@ -137,30 +142,30 @@ class MainWindow(QtWidgets.QMainWindow):
         if self.overlay.isVisible():
             self.changeAsidePanel()
 
-    def getAirlinePanel(self, flies : list):
+    def getAirlinePanel(self, flights : list):
             self.codeGetAirInput.clear()
-            codes = list(map(lambda f : f.code, flies))
+            codes = list(map(lambda f : f.code, flights))
             self.codeGetAirInput.addItems(codes)
             self.stackedWidget.setCurrentIndex(6)
             if self.overlay.isVisible():
                 self.changeAsidePanel()
 
-    def getPorcentPanel(self, flies : list):
+    def getPorcentPanel(self, flights : list):
         self.airlinePorcentInput.clear()
-        airs = set(map(lambda f : f.airline, flies))
+        airs = set(map(lambda f : f.airline, flights))
         self.airlinePorcentInput.addItems(airs)
 
         self.markPorcentInput.clear()
-        marks = set(map(lambda f : f.plane.mark, flies))
+        marks = set(map(lambda f : f.plane.mark, flights))
         self.markPorcentInput.addItems(marks)
 
         self.stackedWidget.setCurrentIndex(7)
         if self.overlay.isVisible():
             self.changeAsidePanel()
 
-    def getAvgPanel(self, flies : list):
+    def getAvgPanel(self, flights : list):
         self.destinyAvgInput.clear()
-        destinies = set(map(lambda f : f.destiny, filter(lambda f : not f.inner, flies)))
+        destinies = set(map(lambda f : f.destiny, filter(lambda f : not f.inner, flights)))
         self.destinyAvgInput.addItems(destinies)
 
         self.stackedWidget.setCurrentIndex(8)
@@ -176,12 +181,12 @@ class MainWindow(QtWidgets.QMainWindow):
         date = self.dateListNInput.date().toPyDate()
         return date
 
-    def setListN(self, flies : list):
+    def setListN(self, flights : list):
         self.listNTable.setRowCount(0)
-        for i, fly in enumerate(flies):
+        for i, fly in enumerate(flights):
             self.listNTable.insertRow(i)
             self.listNTable.setItem(i, 0, QtWidgets.QTableWidgetItem(fly.code))
-            self.listNTable.setItem(i, 1, QtWidgets.QTableWidgetItem(str(fly.inner)))
+            self.listNTable.setItem(i, 1, QtWidgets.QTableWidgetItem("Entrante" if fly.inner else "Saliente"))
             self.listNTable.setItem(i, 2, QtWidgets.QTableWidgetItem(fly.airline))
             self.listNTable.setItem(i, 3, QtWidgets.QTableWidgetItem(fly.init_city))
             self.listNTable.setItem(i, 4, QtWidgets.QTableWidgetItem(fly.end_city))
@@ -193,7 +198,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def addFly(self) -> tuple:
         code = self.codeAddInput.text().strip().upper()
-        inner = self.inAddCheck.isChecked()
+        inner = bool(self.inAddInput.currentIndex())
         airline = self.airlineAddInput.currentText()
         init = self.initAddInput.text().strip().title()
         end = self.endAddInput.text().strip().title()
@@ -277,7 +282,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.numberScalestLabel.setText("N/A")
         else:
             self.codeScalestLabel.setText(fly.code)
-            self.innerScalestLabel.setText(str(fly.inner))
+            self.innerScalestLabel.setText("Entrante" if fly.inner else "Saliente")
             self.airlineScalestLabel.setText(fly.airline)
             self.initScalestLabel.setText(fly.init_city)
             self.endScalestLabel.setText(fly.end_city)

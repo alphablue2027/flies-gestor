@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: AGPL-3.0-with-Commons-Clause
 # Copyright (C) 2025 Ordnay Perez Hernandez - ¡Uso comercial prohibido sin permiso!
-from models.gestor import FliesGestor
+from models.gestor import FlightsGestor
 
 def is_name_valid(*name : str) -> bool:
     for i in name:
@@ -10,7 +10,7 @@ def is_name_valid(*name : str) -> bool:
     return True
 
 def is_name_exist(name : str) -> bool:
-    if list(filter(lambda a : a.name == name, FliesGestor.get_airlines())):
+    if list(filter(lambda a : a.name == name, FlightsGestor.get_airlines())):
         return False
     return True
 
@@ -20,7 +20,7 @@ def is_fcode_valid(code : str, acode : str) -> bool:
     return True
 
 def is_fcode_exist(code : str) -> bool:
-    if list(filter(lambda f : f.code == code, FliesGestor.get_nationals() + FliesGestor.get_internationals())):
+    if list(filter(lambda f : f.code == code, FlightsGestor.get_nationals() + FlightsGestor.get_internationals())):
         return False
     return True
 
@@ -30,7 +30,7 @@ def is_acode_valid(code : str) -> bool:
     return True
 
 def is_acode_exist(code : str) -> bool:
-    if list(filter(lambda a : a.code == code, FliesGestor.get_airlines())):
+    if list(filter(lambda a : a.code == code, FlightsGestor.get_airlines())):
         return False
     return True
 

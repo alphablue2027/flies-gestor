@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: AGPL-3.0-with-Commons-Clause
 # Copyright (C) 2025 Ordnay Perez Hernandez - ¡Uso comercial prohibido sin permiso!
-from .flies import NationalFly, InternationalFly
+from .flights import NationalFly, InternationalFly
 from .airline import Airline
 from datetime import date, datetime
 import os
@@ -55,7 +55,7 @@ class FilesGestor:
             return nationals, internationals, airlines
 
 
-class FliesGestor:
+class FlightsGestor:
     __files = FilesGestor()
     __nationals, __internationals, __airlines = __files.read()
     
@@ -109,8 +109,8 @@ class FliesGestor:
     
     @classmethod
     def get_airline(cls, code : str) -> Airline | None:
-        flies = cls.get_nationals() + cls.get_internationals()
-        for i in flies:
+        flights = cls.get_nationals() + cls.get_internationals()
+        for i in flights:
             if i.code == code.upper():
                 try:
                     return list(filter(lambda a : i.airline == a.name, cls.__airlines))[0]
@@ -123,9 +123,9 @@ class FliesGestor:
 
     @classmethod
     def get_internationals_porcent(cls, mark : str, name : str) -> tuple[int, int, int]:
-        flies = list(filter(lambda f : f.airline == name, cls.get_internationals()))
-        c = len(list(filter(lambda f : f.plane.mark == mark, flies)))
-        return c, len(flies), c*100//len(flies)
+        flights = list(filter(lambda f : f.airline == name, cls.get_internationals()))
+        c = len(list(filter(lambda f : f.plane.mark == mark, flights)))
+        return c, len(flights), c*100//len(flights)
     
     @classmethod
     def get_passagers_avg(cls, destiny: str) -> tuple[int, list[InternationalFly]]:
@@ -134,9 +134,9 @@ class FliesGestor:
         return s//len(l), l
     
     @classmethod
-    def get_outers_nflies(cls, date: date) -> list[NationalFly]:
-        flies = sorted(list(filter(lambda f : not f.inner and f.datetime.date() == date, cls.get_nationals())), key= lambda f: f.datetime.time())
-        return flies
+    def get_outers_nflights(cls, date: date) -> list[NationalFly]:
+        flights = sorted(list(filter(lambda f : not f.inner and f.datetime.date() == date, cls.get_nationals())), key= lambda f: f.datetime.time())
+        return flights
     
     @classmethod
     def get_scalest_fly(cls, date: date) -> InternationalFly | None:
